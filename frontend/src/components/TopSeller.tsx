@@ -2,6 +2,22 @@ import { useEffect, useState } from "react";
 import BookCard from "./BookCard";
 
 
+
+// Import Swiper React components
+import { Swiper, SwiperSlide } from 'swiper/react';
+
+// Import Swiper styles
+import 'swiper/css';
+import 'swiper/css/pagination';
+import 'swiper/css/navigation'
+// import './styles.css';
+
+// import required modules
+import { Pagination, Navigation } from 'swiper/modules';
+
+
+
+
 const TopSeller = () => {
     const categories: string[] = ["Choose a genre", "Business", "Fiction", "Horror", "Adventure"]
     type Book = {
@@ -42,7 +58,8 @@ const TopSeller = () => {
                 <select
                     name="category"
                     id="category"
-                    className="px-4 py-2 border border-red-300 bg-[#EAEAEA] text-gray-700 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-red-400 transition duration-150"
+                    className="px-4 py-2 border-[1] border-gray-300 bg-[#EAEAEA]
+                     text-gray-700 rounded-md shadow-sm focus:outline-none focus:ring-[0.2] transition duration-150 active:border-[1]"
                     onChange={e => setSelectedCategory(e.target.value)}                >
                     {categories.map((category, index) => (
                         <option key={index} value={category}>
@@ -52,13 +69,46 @@ const TopSeller = () => {
                 </select>
             </div>
 
+            <Swiper
+                slidesPerView={1}
+                spaceBetween={10}
+                pagination={{
+                    clickable: true,
+                }}
+                breakpoints={{
+                    640: {
+                        slidesPerView: 1,
+                        spaceBetween: 20,
+                    },
+                    768: {
+                        slidesPerView: 2,
+                        spaceBetween: 40,
+                    },
+                    1024: {
+                        slidesPerView: 2,
+                        spaceBetween: 50,
+                    },
+                    1180: {
+                        slidesPerView: 3,
+                        spaceBetween: 50,  
+                    }
+                }}
+                navigation={true}
+                modules={[Pagination, Navigation]}
+                className="mySwiper"
+            >
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mx-auto">
-                {
-                    filteredBooks.map((book, index) =>
-                        <BookCard book={book} index={index} />
-                    )}
-            </div>
+
+                    {
+                        filteredBooks.length > 0 && filteredBooks.map((book, index) =>
+                            <SwiperSlide >
+                                <BookCard book={book} index={index} />
+                            </SwiperSlide>
+                        )}
+            </Swiper>
+
+
+
 
 
         </div>
