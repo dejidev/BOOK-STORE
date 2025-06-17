@@ -86,7 +86,7 @@ const BookCard: React.FC<Props> = ({ book }) => {
                 {/* Cart Button */}
                 <button
                     onClick={handleAddToCart}
-                    className="mt-4 flex items-start justify-center gap-2 bg-yellow-400 hover:bg-yellow-500 text-sm text-black font-medium py-1 px-3 rounded transition"
+                    className="mt-4 flex items-center justify-center gap-2 bg-yellow-400 hover:bg-yellow-500 text-sm text-black font-medium py-1 px-3 rounded transition"
                 >
                     <FaShoppingCart />
                     Add to Cart

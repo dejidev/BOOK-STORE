@@ -1,6 +1,8 @@
 import { useState } from "react";
-import { FaBars, FaTimes } from "react-icons/fa";
-
+import { FaBars, FaTimes, FaShoppingCart } from "react-icons/fa";
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import type { RootState } from "../redux/store";
 const Navbar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
 
@@ -10,6 +12,11 @@ const Navbar = () => {
         console.log(isMenuOpen);
 
     }
+
+    const cartItems = useSelector((state: RootState) => state.cart.cartItems)
+
+    console.log(cartItems);
+
 
     // type NavigationItem = { name: string, href: string }
 
@@ -26,7 +33,9 @@ const Navbar = () => {
         <header className="bg-white shadow-md  top-0 left-0 w-full mx-auto">
             <div className="max-w-screen-2xl mx-auto px-4 py-4 sm:px-12 flex justify-between items-center">
                 {/* Logo */}
-                <h1 className="text-xl font-bold">Book Store</h1>
+                <Link to="/">
+                    <h1 className="text-xl font-bold">Book Store</h1>
+                </Link>
 
                 {/* Desktop Links */}
                 <nav className="hidden md:flex ">
@@ -37,6 +46,14 @@ const Navbar = () => {
                             </li>
                         ))}
                     </ul>
+
+                    <Link to="/cart">
+                        <div className="flex items-center justify-center gap-2 text-center">
+                            <FaShoppingCart />
+                            <span>Cart ({cartItems.length})</span>
+                        </div>
+                    </Link>
+
 
                 </nav>
 
@@ -54,11 +71,19 @@ const Navbar = () => {
             {isMenuOpen && (
                 <div className="md:hidden bg-white px-4 py-4 shadow-md">
                     <nav className="flex flex-col space-y-4">
-                            {navigation.map((item) => (
-                                <a href={item.href} key={item.name} className="mx-auto">
-                                    {item.name}
-                                </a>
-                            ))}
+                        {navigation.map((item) => (
+                            <a href={item.href} key={item.name} className="mx-auto">
+                                {item.name}
+                            </a>
+                        ))}
+
+                        <Link to="/cart">
+                            <div className="flex items-center justify-center gap-2 text-center mx-4">
+                                <FaShoppingCart className="text-2xl " />
+                                <span className="text-sm font-semibold ">{cartItems.length}</span>
+                            </div>
+                        </Link>
+
                     </nav>
                 </div>
             )}

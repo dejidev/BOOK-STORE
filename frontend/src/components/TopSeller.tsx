@@ -42,12 +42,12 @@ const TopSeller = () => {
             .catch(err => console.error("Failed to load books:", err));
     }, [])
 
-    console.log(books);
-    console.log(selectedCategory);
+    // console.log(books);
+    // console.log(selectedCategory);
 
 
     const filteredBooks = selectedCategory === "Choose a genre" ? books : books.filter(book => book.category === selectedCategory.toLowerCase())
-    console.log(filteredBooks);
+    // console.log(filteredBooks);
 
 
     return (

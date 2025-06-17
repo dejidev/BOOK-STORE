@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
+import Swal from 'sweetalert2';
 
 interface CartItem {
     _id: number;
@@ -29,15 +30,31 @@ const cartSlice = createSlice({
             if (!existingItem) {
                 state.cartItems.push(action.payload)
                 // alert("Item added successfully")
+                Swal.fire({
+                    title: "Item added successfully!",
+                    icon: "success",
+                    draggable: true
+                });
             } else {
                 // alert("Item already exist")
-                console.log("Item already existed")
+                Swal.fire({
+                    icon: "error",
+                    title: "Item already exist!",
+                    // footer: '<a href="#">Why do I have this issue?</a>'
+                });
             }
+        },
+
+        removeFromCart: (state, action: PayloadAction<number>) => {
+            state.cartItems = state.cartItems.filter(item => item._id !== action.payload);
+        },
+        clearCart: (state,) => {
+            state.cartItems = []
         }
     }
 })
 
 
-export const { addToCart } = cartSlice.actions;
+export const { addToCart, removeFromCart, clearCart } = cartSlice.actions;
 
 export default cartSlice.reducer;
