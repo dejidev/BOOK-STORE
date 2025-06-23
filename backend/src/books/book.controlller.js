@@ -4,7 +4,7 @@ const Book = require("./book.model");
 const postAbook = async (req, res) => {
     try {
         const newBook = await Book({ ...req.body })
-        // await newBook.save();
+        await newBook.save();
         res.status(200).send({ message: "Book posted successfully...", book: newBook })
     } catch (error) {
         console.error("Error creating book", error);
@@ -12,6 +12,84 @@ const postAbook = async (req, res) => {
     }
 }
 
+
+const getAllbooks = async (req, res) => {
+    try {
+        const books = await Book.find().sort({ createdAt: -1 });
+        res.status(200).send(books)
+    } catch (error) {
+        console.error("Error fetching books", error)
+        res.status(500).send({ mesage: "Failed to fetch books" })
+
+    }
+}
+
+
+const getSingleBook = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const book = await Book.findById(id);
+        if (!book) {
+            res.status(404).send({ message: "Book gotten successfully", book: newBook })
+        }
+        res.status(200).send(book)
+    } catch (error) {
+        console.error("Error fetching books", error)
+        res.status(500).send({ mesage: "Failed to fetch books" })
+    }
+}
+
+
+const updateBookData = async (req, res) => {
+    try {
+        const { id } = req.params;
+        // const updateBook = await Book.findById(id);
+        const updateBook = await Book.findByIdAndUpdate(
+            id,
+            req.body, // the fields to update
+            { new: true } // return the updated document
+        );
+
+        if (!updateBook) {
+            res.status(404).send({ message: "Book is not found" });
+        }
+
+        res.status(200).send({
+            message: "Book updated successfully",
+            book: updateBook
+        })
+
+    } catch (error) {
+        console.error("Error updating books", error)
+        res.status(500).send({ mesage: "Failed to update books" })
+    }
+}
+
+
+const deleteBook = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const deletedBook = await Book.findByIdAndDelete(id);
+
+        if (!deletedBook) {
+            res.status(404).send({ message: "Book is not found" });
+        }
+
+        res.status(200).send({
+            message: "Book deleted successfully",
+            book: deletedBook
+        })
+    } catch (error) {
+        console.error("Error deleting books", error)
+        res.status(500).send({ mesage: "Failed to delete books" })
+    }
+}
+
+
 module.exports = {
-    postAbook
+    postAbook,
+    getAllbooks,
+    getSingleBook,
+    updateBookData,
+    deleteBook
 }

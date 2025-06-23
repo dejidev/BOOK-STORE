@@ -1,7 +1,5 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import BookCard from "./BookCard";
-
-
 
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -14,6 +12,7 @@ import 'swiper/css/navigation'
 
 // import required modules
 import { Pagination, Navigation } from 'swiper/modules';
+import { useFetchAllBookQuery } from "../redux/features/cart/booksApi";
 
 
 
@@ -30,23 +29,35 @@ const TopSeller = () => {
         oldPrice: number,
         newPrice: number
     }
-    const [books, setBooks] = useState<Book[]>([])
+    // const [books, setBooks] = useState<Book[]>([])
+
     const [selectedCategory, setSelectedCategory] = useState("Choose a genre")
 
+    const { data } = useFetchAllBookQuery();
+    const books: Book[] = data ?? [];
 
 
-    useEffect(() => {
-        fetch("/books.json")
-            .then(res => res.json())
-            .then((data) => setBooks(data))
-            .catch(err => console.error("Failed to load books:", err));
-    }, [])
+    // console.log("API data response:", data);
+    // console.log(books)
+
+    // useEffect(() => {
+    //     fetch("/books.json")
+    //         .then(res => res.json())
+    //         .then((data) => setBooks(data))
+    //         .catch(err => console.error("Failed to load books:", err));
+    // }, [])
 
     // console.log(books);
     // console.log(selectedCategory);
 
 
-    const filteredBooks = selectedCategory === "Choose a genre" ? books : books.filter(book => book.category === selectedCategory.toLowerCase())
+    // const filteredBooks = selectedCategory === "Choose a genre" ? books : books.filter(book => book.category === selectedCategory.toLowerCase())
+    const filteredBooks = selectedCategory === "Choose a genre"
+        ? books
+        : books.filter(book =>
+            book.category?.toLowerCase() === selectedCategory.toLowerCase()
+        );
+
     // console.log(filteredBooks);
 
 
@@ -90,7 +101,7 @@ const TopSeller = () => {
                     },
                     1180: {
                         slidesPerView: 3,
-                        spaceBetween: 50,  
+                        spaceBetween: 50,
                     }
                 }}
                 navigation={true}
@@ -99,12 +110,12 @@ const TopSeller = () => {
             >
 
 
-                    {
-                        filteredBooks.length > 0 && filteredBooks.map((book, index) =>
-                            <SwiperSlide >
-                                <BookCard book={book} index={index} />
-                            </SwiperSlide>
-                        )}
+                {
+                    filteredBooks.length > 0 && filteredBooks.map((book, index) =>
+                        <SwiperSlide >
+                            <BookCard book={book} key={index} />
+                        </SwiperSlide>
+                    )}
             </Swiper>
 
 
@@ -116,3 +127,6 @@ const TopSeller = () => {
 }
 
 export default TopSeller;
+
+
+

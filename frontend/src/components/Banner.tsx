@@ -1,4 +1,3 @@
-
 const Banner = () => {
     return (
         <section>
@@ -12,7 +11,7 @@ const Banner = () => {
             </div>
 
             <div>
-                <img src="" alt="Banner" />
+                {/* <img src="" alt="Banner" /> */}
             </div>
         </section>
     )

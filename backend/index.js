@@ -9,10 +9,16 @@ const mongoose = require('mongoose');
 
 //Middleware
 app.use(express.json());
-// app.use(cors({
-//     origin: ["https://localhost:5173"]
-// }))
-
+app.use(cors({
+    origin: ["http://localhost:5173"]
+}))
+app.use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:5173'); // Or the appropriate origin
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE'); // Or the methods you need
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization'); // Or the headers you need
+    res.setHeader('Access-Control-Allow-Credentials', 'true'); // <--- Add this line
+    next();
+});
 
 
 const bookRoutes = require("./src/books/book.route.js")
@@ -20,13 +26,9 @@ console.log(bookRoutes.route);
 app.use("/api/books", bookRoutes)
 
 async function main() {
-    // await mongoose.connect(process.env.DB_URI);
-    // app.use("/", (req, res) => {
-    //     res.send("Books Store here. . .")
-    // })
-    app.get("/", (req, res) => {
-        console.log("Testing");
-
+    await mongoose.connect(process.env.DB_URI);
+    app.use("/", (req, res) => {
+        res.send("Books Store here. . .")
     })
 }
 
