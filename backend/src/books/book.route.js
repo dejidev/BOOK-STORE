@@ -9,7 +9,6 @@ router.post("/create-books", postAbook)
 //Get All Books
 router.get("/", getAllbooks)
 
-
 //Get a single book
 router.get("/:id", getSingleBook)
 
@@ -18,7 +17,6 @@ router.put("/edit/:id", updateBookData)
 
 //Delete a book
 router.delete("/:id", deleteBook)
-
 
 
 module.exports = router;

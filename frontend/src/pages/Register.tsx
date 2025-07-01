@@ -1,7 +1,8 @@
 import { FaGoogle } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
+import { useAuth } from "../context/AuthContext";
 
 type RegisterForm = {
     name: string;
@@ -11,6 +12,10 @@ type RegisterForm = {
 
 const Register = () => {
     const [message, setMessage] = useState<string>("");
+    const [loading, setLoading] = useState<boolean>(false);
+    const { registerUser, signInWithGoogle } = useAuth()
+
+    const navigate = useNavigate();
 
     const {
         register,
@@ -18,14 +23,31 @@ const Register = () => {
         formState: { errors },
     } = useForm<RegisterForm>();
 
-    const onSubmit = (data: RegisterForm) => {
-        console.log("Registration Data:", data);
-        setMessage("Account created! (simulated)");
+    const onSubmit = async (data: RegisterForm) => {
+        try {
+            setLoading(true);
+            await registerUser(data.email, data.password);
+            alert("User Registration is Successful!")
+            setMessage("Account created successfully!");
+        } catch (error) {
+            setMessage("Error creating account. Please try again.");
+            console.error("Registration error:", error);
+        } finally {
+            setLoading(false);
+        }
     };
 
-    const handleGoogleSignUp = () => {
-        console.log("Sign up with Google clicked");
-        setMessage("Google Sign-Up simulated!");
+    const handleGoogleSignUp = async () => {
+        try {
+            await signInWithGoogle()
+            console.log("Sign up with Google clicked");
+            setMessage("Google Sign-Up simulated!");
+            navigate("/")
+        } catch (error) {
+            console.error("Google sign-up error:", error);
+            setMessage("Google sign-up failed, Please try again")
+        }
+
     };
 
     return (

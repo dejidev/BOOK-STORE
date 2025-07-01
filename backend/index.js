@@ -22,8 +22,8 @@ app.use((req, res, next) => {
 
 
 const bookRoutes = require("./src/books/book.route.js")
-console.log(bookRoutes.route);
 app.use("/api/books", bookRoutes)
+// app.use("/books", bookRoutes)
 
 async function main() {
     await mongoose.connect(process.env.DB_URI);

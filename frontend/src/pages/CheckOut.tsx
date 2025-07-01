@@ -1,19 +1,7 @@
-
-// const CheckOut = () => {
-//   return (
-//     <div>
-//       CheckOut
-//     </div>
-//   )
-// }
-
-// export default CheckOut
-
-
-import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useState } from "react"; import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import type { RootState } from "../redux/store";
+import { useAuth } from "../context/AuthContext";
 
 const Checkout = () => {
     const cartItems = useSelector((state: RootState) => state.cart.cartItems);
@@ -53,6 +41,9 @@ const Checkout = () => {
     };
 
     const totalPrice = cartItems.reduce((sum, item) => sum + item.price, 0);
+
+    const { currentUser } = useAuth()
+
 
     return (
         <div className="max-w-4xl mx-auto p-6 bg-white shadow-md rounded-md mt-6">

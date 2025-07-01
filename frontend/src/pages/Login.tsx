@@ -1,7 +1,8 @@
 import { FaGoogle } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
+import { useAuth } from "../context/AuthContext";
 
 type FormValues = {
     email: string;
@@ -10,6 +11,8 @@ type FormValues = {
 
 const Login = () => {
     const [message, setMessage] = useState<string>("");
+    const { loginUser , signInWithGoogle} = useAuth();
+    const navigate = useNavigate();
 
     const {
         register,
@@ -17,12 +20,29 @@ const Login = () => {
         formState: { errors },
     } = useForm<FormValues>();
 
-    const onSubmit = (data: FormValues) => {
-        console.log("Login data:", data);
-        setMessage("Login successful! (Simulated)");
+    const onSubmit = async (data: FormValues) => {
+        try {
+            await loginUser(data.email, data.password);
+            alert("User login successful!");
+            setMessage("Login successful! (Simulated)");
+            navigate("/")
+        } catch (error) {
+            console.error("Login error:", error)
+            setMessage("Login failed. Please try again ...")
+        }
+
     };
 
-    const handleGoogleLogin = () => {
+    const handleGoogleLogin = async () => {
+        try {
+            await signInWithGoogle();
+            console.log("Sign up with Google clicked");
+            setMessage("Google Sign-Up simulated!");
+            navigate("/")
+        } catch (error) {
+            console.error("Google sign-up error:", error);
+            setMessage("Google sign-up failed, Please try again")
+        }
         console.log("Login with Google clicked");
         setMessage("Google login simulated!");
     };

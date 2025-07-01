@@ -1,11 +1,14 @@
-import { createBrowserRouter } from "react-router";
+// instead of "react-router"
+import { createBrowserRouter } from "react-router-dom";
 import App from "../App";
 import Home from "../pages/Home";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
 import CartPage from "../pages/CartPage";
 import CheckOut from "../pages/CheckOut";
+import SingleBook from "../redux/features/cart/Singlebook";
 // import Cart from "../pages/cart"
+import Privateroute from "./privateroute"
 
 const router = createBrowserRouter([
     {
@@ -14,7 +17,7 @@ const router = createBrowserRouter([
         children: [
             {
                 path: "/",
-                element: <Home/>
+                element: <Home />
             },
             {
                 path: "/orders",
@@ -34,12 +37,17 @@ const router = createBrowserRouter([
             },
             {
                 path: "/cart",
-                element: <CartPage/>
+                element: <CartPage />
             },
             {
                 path: "/checkout",
-                element: <CheckOut/>
+                element: <Privateroute><CheckOut /></Privateroute>
+            },
+            {
+                path: "/books/:id", // ← plural!
+                element: <SingleBook />
             }
+
         ]
     },
 ]);

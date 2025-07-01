@@ -3,9 +3,9 @@ import { FaBars, FaTimes, FaShoppingCart } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import type { RootState } from "../redux/store";
+import { useAuth } from "../context/AuthContext";
 const Navbar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
-
 
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen)
@@ -15,13 +15,12 @@ const Navbar = () => {
 
     const cartItems = useSelector((state: RootState) => state.cart.cartItems)
 
-    console.log(cartItems);
+    const { currentUser, logout } = useAuth()
 
-
-    // type NavigationItem = { name: string, href: string }
-
-    // type Navigation = NavigationItem[]
-
+    const handlelogOut = () => {
+        // logout(currentUser)
+        logout()
+    }
 
     const navigation: { name: string; href: string }[] = [
         { name: "Dashboard", href: "/dashboard" },
@@ -53,6 +52,10 @@ const Navbar = () => {
                             <span>Cart ({cartItems.length})</span>
                         </div>
                     </Link>
+
+                    <button onClick={handlelogOut}>
+                        <p className="">Logout</p>
+                    </button>
 
 
                 </nav>

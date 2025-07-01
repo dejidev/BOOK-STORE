@@ -6,7 +6,7 @@ import { addToCart } from "../redux/features/cart/cartSlice";
 
 
 type Book = {
-    _id: number;
+    _id: string | number;
     title: string;
     description: string;
     category: string;
@@ -20,23 +20,10 @@ type Props = {
     book: Book
 }
 
-// interface CartItem {
-//     _id: string;
-//     name: string;
-//     price: number;
-//     quantity?: number;
-// }
-
-// interface CartState {
-//     cartItems: CartItem[];
-// }
 
 const BookCard: React.FC<Props> = ({ book }) => {
     const dispatch = useDispatch();
 
-    // const handleAddToCart = (product:Book) => {
-    //     dispatch(addToCart(product));
-    // };
 
     const handleAddToCart = () => {
         console.log("Clicked on the cart");
