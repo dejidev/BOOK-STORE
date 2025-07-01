@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import BookCard from './BookCard'
-import { useFetchAllBookQuery } from '../redux/features/cart/booksApi'
+import { useFetchAllBookQuery } from '../redux/features/books/booksApi'
 
 const Recommended = () => {
     const categories: string[] = ["Choose a genre", "Business", "Fiction", "Horror", "Adventure"]

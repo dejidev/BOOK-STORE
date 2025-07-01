@@ -22,8 +22,10 @@ app.use((req, res, next) => {
 
 
 const bookRoutes = require("./src/books/book.route.js")
+const orderRoutes = require("./src/order/order.routes.js")
+
 app.use("/api/books", bookRoutes)
-// app.use("/books", bookRoutes)
+app.use("/api/orders", orderRoutes)
 
 async function main() {
     await mongoose.connect(process.env.DB_URI);

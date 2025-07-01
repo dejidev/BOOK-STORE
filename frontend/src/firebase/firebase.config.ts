@@ -8,18 +8,6 @@ import { getAuth } from "firebase/auth";
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 
 
-// const firebaseConfig = {
-//     apiKey: "AIzaSyDD0vzuww9Thq1eudTz_ct2o5LzV5IStTQ",
-//     authDomain: "book-store-ddeea.firebaseapp.com",
-//     projectId: "book-store-ddeea",
-//     storageBucket: "book-store-ddeea.firebasestorage.app",
-//     messagingSenderId: "698183292320",
-//     appId: "1:698183292320:web:1f16b554c7f9591f5b80c5",
-//     measurementId: "G-Q4Z704XB8F"
-// };
-
-
-
 const firebaseConfig = {
     apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
     authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,

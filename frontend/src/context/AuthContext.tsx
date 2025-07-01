@@ -11,7 +11,6 @@ import {
 import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut } from "@firebase/auth";
 import { auth } from "../firebase/firebase.config";
 import { GoogleAuthProvider } from "firebase/auth";
-import { set } from "react-hook-form";
 
 
 

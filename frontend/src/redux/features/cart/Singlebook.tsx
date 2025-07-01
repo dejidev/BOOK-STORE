@@ -1,5 +1,5 @@
 import { useParams } from 'react-router-dom';
-import { useFetchBooksByIdQuery } from './booksApi';
+import { useFetchBooksByIdQuery } from '../books/booksApi';
 import BookCard from '../../../components/BookCard';
 
 const SingleBook = () => {

@@ -12,7 +12,7 @@ import 'swiper/css/navigation'
 
 // import required modules
 import { Pagination, Navigation } from 'swiper/modules';
-import { useFetchAllBookQuery } from "../redux/features/cart/booksApi";
+import { useFetchAllBookQuery } from "../redux/features/books/booksApi";
 
 
 
