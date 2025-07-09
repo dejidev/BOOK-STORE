@@ -126,7 +126,8 @@ export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
         registerUser,
         loginUser,
         signInWithGoogle,
-        logout
+        logout,
+        loading
     };
 
     return (

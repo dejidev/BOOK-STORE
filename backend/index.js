@@ -1,6 +1,9 @@
 const express = require('express')
 const app = express()
 require('dotenv').config()
+
+
+
 const cors = require("cors")
 
 
@@ -22,10 +25,13 @@ app.use((req, res, next) => {
 
 
 const bookRoutes = require("./src/books/book.route.js")
-const orderRoutes = require("./src/order/order.routes.js")
+const orderRoutes = require("./src/order/order.route.js")
+const adminRoutes = require("./src/users/user.route.js")
 
 app.use("/api/books", bookRoutes)
 app.use("/api/orders", orderRoutes)
+app.use("/api/auth", adminRoutes)
+
 
 async function main() {
     await mongoose.connect(process.env.DB_URI);

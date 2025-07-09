@@ -21,14 +21,6 @@ const Recommended = () => {
     const books: Book[] = data ?? [];
 
 
-    // useEffect(() => {
-    //     fetch("/books.json")
-    //         .then(res => res.json())
-    //         .then((data) => setBooks(data))
-    //         .catch(err => console.error("Failed to load books:", err));
-    // }, [])
-
-
 
     const filteredBooks = selectedCategory === "Choose a genre" ? books : books.filter(book => book.category === selectedCategory.toLowerCase())
     return (

@@ -16,7 +16,6 @@ import { useFetchAllBookQuery } from "../redux/features/books/booksApi";
 
 
 
-
 const TopSeller = () => {
     const categories: string[] = ["Choose a genre", "Business", "Fiction", "Horror", "Adventure"]
     type Book = {

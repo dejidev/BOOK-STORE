@@ -9,6 +9,8 @@ import CheckOut from "../pages/CheckOut";
 import SingleBook from "../redux/features/cart/Singlebook";
 // import Cart from "../pages/cart"
 import PrivateRoute from "./privateroute"
+import ThankYou from "../pages/ThankYou";
+import Orders from "../pages/Orders";
 
 const router = createBrowserRouter([
     {
@@ -18,10 +20,6 @@ const router = createBrowserRouter([
             {
                 path: "/",
                 element: <Home />
-            },
-            {
-                path: "/orders",
-                element: <div>Orders</div>
             },
             {
                 path: "/about",
@@ -46,6 +44,14 @@ const router = createBrowserRouter([
             {
                 path: "/books/:id", // ← plural!
                 element: <SingleBook />
+            },
+            {
+                path: "/thank-you", // ← plural!
+                element: <ThankYou />
+            },
+            {
+                path: "/orders",
+                element: <PrivateRoute><Orders /></PrivateRoute>
             }
 
         ]

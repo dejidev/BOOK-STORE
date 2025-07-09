@@ -1,6 +1,5 @@
 const Book = require("./book.model");
 
-
 const postAbook = async (req, res) => {
     try {
         const newBook = await Book({ ...req.body })

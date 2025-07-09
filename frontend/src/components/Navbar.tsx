@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { FaBars, FaTimes, FaShoppingCart } from "react-icons/fa";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import type { RootState } from "../redux/store";
 import { useAuth } from "../context/AuthContext";
 const Navbar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
+
+    const navigate = useNavigate();
 
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen)
@@ -20,13 +22,14 @@ const Navbar = () => {
     const handlelogOut = () => {
         // logout(currentUser)
         logout()
+        navigate("/login")
     }
 
-    const navigation: { name: string; href: string }[] = [
-        { name: "Dashboard", href: "/dashboard" },
-        { name: "Orders", href: "/dashboard" },
-        { name: "Cart Page", href: "/dashboard" },
-        { name: "Check Out", href: "/dashboard" },
+    const navigation: { name: string; link: string }[] = [
+        { name: "Dashboard", link: "" },
+        { name: "Orders", link: "orders" },
+        { name: "cartpage", link: "cart" },
+        { name: "checkout", link: "checkout" },
     ]
     return (
         <header className="bg-white shadow-md  top-0 left-0 w-full mx-auto">
@@ -40,9 +43,9 @@ const Navbar = () => {
                 <nav className="hidden md:flex ">
                     <ul className="md: flex space-x-6" >
                         {navigation.map((item) => (
-                            <li key={item.name}>
+                            <Link to={`/${item.link}`} key={item.name} className="text-gray-700 hover:text-blue-500 capitalize" >
                                 {item.name}
-                            </li>
+                            </Link>
                         ))}
                     </ul>
 
@@ -54,7 +57,7 @@ const Navbar = () => {
                     </Link>
 
                     <button onClick={handlelogOut}>
-                        <p className="">Logout</p>
+                        <p className="text-red-700 cursor-pointer">Logout</p>
                     </button>
 
 
