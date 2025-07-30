@@ -29,7 +29,7 @@ const BookCard: React.FC<Props> = ({ book }) => {
         console.log("Clicked on the cart");
 
         dispatch(addToCart({
-            _id: Number(book._id),
+            _id: book._id,
             name: book.title,
             price: book.newPrice,
             quantity: 1,
@@ -41,7 +41,7 @@ const BookCard: React.FC<Props> = ({ book }) => {
     return (
         <div className="m-4 bg-white flex align-center shadow-md rounded-xl overflow-hidden transition hover:scale-105 hover:shadow-xl duration-300">
             <img
-                src={getImgUrl(book.coverImage).href}
+                src={getImgUrl(book.coverImage).toString()}
                 alt={book.title}
                 className="w-32 object-cover"
             />
