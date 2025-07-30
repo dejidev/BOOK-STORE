@@ -18,7 +18,6 @@ type Book = {
 
 
 
-
 const EditBook = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
@@ -46,8 +45,11 @@ const EditBook = () => {
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    const { name, value, type, checked } = e.target;
-    const newValue = type === 'checkbox' ? checked : value;
+    const { name, value, type } = e.target;
+    const newValue =
+      type === 'checkbox'
+        ? (e.target as HTMLInputElement).checked
+        : value;
     setFormData((prev) =>
       prev ? { ...prev, [name]: type === 'number' ? Number(newValue) : newValue } : prev
     );

@@ -4,7 +4,7 @@ import axios from 'axios';
 import LoadingSpinner from '../../components/Loading';
 
 import { NavLink, Outlet } from 'react-router-dom';
-import { FaBook, FaPlus, FaEdit, FaHome, FaRegEdit } from 'react-icons/fa';
+import { FaBook, FaPlus, FaHome} from 'react-icons/fa';
 
 
 const DashboardLayout = () => {

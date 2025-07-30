@@ -8,7 +8,8 @@ import {
 
 } from "react";
 
-import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut } from "@firebase/auth";
+import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut } from "firebase/auth";
+import type { User } from "firebase/auth";
 import { auth } from "../firebase/firebase.config";
 import { GoogleAuthProvider } from "firebase/auth";
 
@@ -27,6 +28,7 @@ interface AuthContextType {
     loginUser: (email: string, password: string) => Promise<UserCredential>;
     signInWithGoogle: () => Promise<UserCredential>;
     logout: () => Promise<void>;
+    loading: boolean;
 }
 
 // Create the context with an initial value of undefined
@@ -50,7 +52,7 @@ interface AuthProviderProps {
 
 // Create the provider component
 export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
-    const [currentUser, setCurrentUser] = useState(null);
+    const [currentUser, setCurrentUser] = useState<User | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
 
     const registerUser = async (email: string, password: string) => {

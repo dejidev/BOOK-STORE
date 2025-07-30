@@ -17,7 +17,8 @@ const Navbar = () => {
 
     const cartItems = useSelector((state: RootState) => state.cart.cartItems)
 
-    const { currentUser, logout } = useAuth()
+    // const { currentUser, logout } = useAuth()
+    const { logout } = useAuth()
 
     const handlelogOut = () => {
         // logout(currentUser)
@@ -78,7 +79,7 @@ const Navbar = () => {
                 <div className="md:hidden bg-white px-4 py-4 shadow-md">
                     <nav className="flex flex-col space-y-4">
                         {navigation.map((item) => (
-                            <a href={item.href} key={item.name} className="mx-auto">
+                            <a href={`/${item.link}`} key={item.name} className="mx-auto">
                                 {item.name}
                             </a>
                         ))}

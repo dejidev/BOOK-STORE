@@ -1,4 +1,3 @@
-import React from 'react'
 import { useOutletContext } from 'react-router-dom';
 
 type AdminData = {
@@ -6,7 +5,7 @@ type AdminData = {
     totalSales: number;
     totalBooks: number;
     trendingBooks: number;
-    monthlySales: any[];
+    monthlySales: number[] | string[]; // or define a specific interface if monthlySales contains objects
 };
 
 

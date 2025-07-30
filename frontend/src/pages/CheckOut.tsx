@@ -44,7 +44,7 @@ const Checkout = () => {
 
 
 
-    const { createOrder } = useCreateOrderMutation();
+    const [createOrder] = useCreateOrderMutation();
     console.log(createOrder);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -78,8 +78,8 @@ const Checkout = () => {
 
         const newOrder: OrderInput = {
             ...formData,
-            phone: Number(formData.phone.replace(/\D/g, "")), // strips non-digits and converts to number
-            productId: cartItems.map((item) => item._id),
+            phone: formData.phone.replace(/\D/g, ""), // strips non-digits, keeps as string
+            productId: cartItems.map((item) => String(item._id)),
             totalPrice: cartItems.reduce((sum, item) => sum + item.price, 0),
         };
 

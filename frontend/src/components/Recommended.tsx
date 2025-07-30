@@ -5,7 +5,7 @@ import { useFetchAllBookQuery } from '../redux/features/books/booksApi'
 const Recommended = () => {
     const categories: string[] = ["Choose a genre", "Business", "Fiction", "Horror", "Adventure"]
     type Book = {
-        _id: number,
+        _id: string,
         title: string,
         description: string,
         category: string,
@@ -18,7 +18,7 @@ const Recommended = () => {
     const [selectedCategory, setSelectedCategory] = useState("Choose a genre")
 
     const { data } = useFetchAllBookQuery();
-    const books: Book[] = data ?? [];
+    const books: Book[] = data?.books ?? [];
 
 
 

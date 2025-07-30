@@ -17,10 +17,11 @@ const AddBookForm = () => {
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value, type, checked } = e.target;
+    const target = e.target as HTMLInputElement;
+    const { name, value, type } = target;
     setFormData((prev) => ({
       ...prev,
-      [name]: type === 'checkbox' ? checked : type === 'number' ? +value : value,
+      [name]: type === 'checkbox' ? target.checked : type === 'number' ? +value : value,
     }));
   };
 

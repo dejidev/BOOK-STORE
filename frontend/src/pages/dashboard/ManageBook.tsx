@@ -1,4 +1,3 @@
-import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   useDeleteBookMutation,
@@ -12,7 +11,7 @@ const ManageBook = () => {
   const { data: books, isLoading, refetch } = useFetchAllBookQuery();
   const [deleteBook] = useDeleteBookMutation();
 
-  const handleDeleteBook = async (id) => {
+  const handleDeleteBook = async (id: number | string) => {
     try {
       await deleteBook(id).unwrap();
       console.log("Book deleted");
@@ -23,7 +22,7 @@ const ManageBook = () => {
       alert('Failed to delete a book');
     }
   };
-  
+
 
   const handleEditClick = (id) => {
     navigate(`/dashboard/edit-book/${id}`);
@@ -34,17 +33,17 @@ const ManageBook = () => {
   return (
     <div className="p-4">
       <h2 className="text-xl font-semibold mb-4">Manage Books</h2>
-      {books?.length === 0 ? (
+      {books?.books?.length === 0 ? (
         <p>No books available</p>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {books?.map((book) => (
+          {books?.books?.map((book) => (
             <div
               key={book._id}
               className="border p-4 rounded shadow-sm bg-white"
             >
               <img
-                src={getImgUrl(book.coverImage)}
+                src={getImgUrl(book.coverImage).toString()}
                 // src={getImgUrls(book.coverImage)}
                 alt={book.title}
                 className="w-full h-40 object-cover rounded mb-2"
@@ -65,7 +64,7 @@ const ManageBook = () => {
                   Edit
                 </button>
                 <button
-                  onClick={() => handleDeleteBook(book._id)}
+                  onClick={() => handleDeleteBook(Number(book._id))}
                   className="px-4 py-1 bg-red-500 text-white rounded hover:bg-red-600"
                 >
                   Delete

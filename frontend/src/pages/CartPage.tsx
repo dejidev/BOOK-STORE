@@ -2,7 +2,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { removeFromCart, clearCart } from "../redux/features/cart/cartSlice";
 import { FaTrash } from "react-icons/fa";
 import type { RootState } from "../redux/store";
-import { Link, Navigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const CartPage = () => {
     const cartItems = useSelector((state: RootState) => state.cart.cartItems);

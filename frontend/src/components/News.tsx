@@ -1,4 +1,3 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 
 import news1 from "../assets/news/news-1.png"
@@ -12,7 +11,6 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 // Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/pagination';
-import 'swiper/css/navigation'
 // import './styles.css';
 
 // import required modules
@@ -92,7 +90,7 @@ const News = () => {
             >
                 {
                     news.map((item, index) => (
-                        <SwiperSlide  key={index}>
+                        <SwiperSlide key={index}>
                             <div className='flex flex-col sm:flex-row items-center sm:justify-between gap-12'>
                                 <div className='py-4 flex flex-col item-start sm:w-[70%]'>
                                     <Link to="/">
