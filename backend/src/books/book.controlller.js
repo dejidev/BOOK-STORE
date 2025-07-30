@@ -1,15 +1,5 @@
 const Book = require("./book.model");
 
-// const postAbook = async (req, res) => {
-//     try {
-//         const newBook = await Book({ ...req.body })
-//         await newBook.save();
-//         res.status(200).send({ message: "Book posted successfully...", book: newBook })
-//     } catch (error) {
-//         console.error("Error creating book", error);
-//         res.status(500).send({ message: "Fail to create a book" })
-//     }
-// }
 
 
 const postAbook = async (req, res) => {
@@ -51,49 +41,40 @@ const getSingleBook = async (req, res) => {
 
 
 const updateBookData = async (req, res) => {
+
+
     try {
         const { id } = req.params;
-        // const updateBook = await Book.findById(id);
+
         const updateBook = await Book.findByIdAndUpdate(
             id,
-            req.body, // the fields to update
+            req.body,
             { new: true } // return the updated document
         );
 
         if (!updateBook) {
-            res.status(404).send({ message: "Book is not found" });
+            return res.status(404).send({ message: "Book is not found" }); // ✅ add return
         }
 
         res.status(200).send({
             message: "Book updated successfully",
             book: updateBook
-        })
+        });
 
     } catch (error) {
-        console.error("Error updating books", error)
-        res.status(500).send({ mesage: "Failed to update books" })
+        console.error("Error updating books", error);
+        res.status(500).send({ message: "Failed to update books" }); // ✅ also fixed typo: "mesage" -> "message"
     }
+
+
 }
 
 
-// const deleteBook = async (req, res) => {
-//     try {
-//         const { id } = req.params;
-//         const deletedBook = await Book.findByIdAndDelete(id);
 
-//         if (!deletedBook) {
-//             res.status(404).send({ message: "Book is not found" });
-//         }
 
-//         res.status(200).send({
-//             message: "Book deleted successfully",
-//             book: deletedBook
-//         })
-//     } catch (error) {
-//         console.error("Error deleting books", error)
-//         res.status(500).send({ mesage: "Failed to delete books" })
-//     }
-// }
+
+
+
 
 const deleteBook = async (req, res) => {
     try {

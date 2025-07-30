@@ -41,7 +41,7 @@ const DashboardLayout = () => {
                 <nav className="flex flex-col space-y-3">
                     <NavItem to="/dashboard" label="Dashboard Home" icon={<FaHome />} />
                     <NavItem to="/dashboard/add-new-book" label="Add New Book" icon={<FaPlus />} />
-                    <NavItem to="/dashboard/edit-book/:id" label="Edit Book" icon={<FaRegEdit />} />
+                    {/* <NavItem to="/dashboard/edit-book/:id" label="Edit Book" icon={<FaRegEdit />} /> */}
                     <NavItem to="/dashboard/manage-books" label="Manage Books" icon={<FaBook />} />
                 </nav>
             </aside>

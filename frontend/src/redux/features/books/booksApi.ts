@@ -58,20 +58,14 @@ const booksApi = createApi({
 
         updateBook: builder.mutation<Book, Partial<Book> & { id: string }>({
             query: ({ id, ...updatedBook }) => ({
-                url: `/${id}`,
+                url: `edit/${id}`,
                 method: 'PUT',
                 body: updatedBook,
             }),
             invalidatesTags: ["Books"],
         }),
 
-        // deleteBook: builder.mutation<Book, Partial<Book> & { id: string }>({
-        //     query: (id) => ({
-        //         url: `/${id}`,
-        //         method: 'DELETE',
-        //     }),
-        //     invalidatesTags: ["Books"]
-        // })
+
 
         deleteBook: builder.mutation<void, string>({
             query: (id) => ({
