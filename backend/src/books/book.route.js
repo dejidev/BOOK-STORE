@@ -2,6 +2,7 @@ const express = require("express");
 const { postAbook, getAllbooks, getSingleBook, updateBookData, deleteBook } = require("./book.controlller")
 const router = express.Router();
 
+const  verifyAdminToken = require("../middleware/verifyAdminToken")
 //post a book
 router.post("/create-books", postAbook)
 

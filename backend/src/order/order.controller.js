@@ -22,7 +22,7 @@ const getOrderByEmail = async (req, res) => {
     try {
         const { email } = req.params;
         console.log(email)
-        const orders = await Order.find({email}).sort({ createdAt: -1 });
+        const orders = await Order.find({ email }).sort({ createdAt: -1 });
         if (!orders) {
             return res.status(404).json({ message: "Order not found" })
         }

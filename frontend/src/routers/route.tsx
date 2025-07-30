@@ -11,6 +11,13 @@ import SingleBook from "../redux/features/cart/Singlebook";
 import PrivateRoute from "./privateroute"
 import ThankYou from "../pages/ThankYou";
 import Orders from "../pages/Orders";
+import AdminRoute from "./AdminRoute";
+import AdminLogin from "../components/AdminLogin";
+import DashboardLayout from "../pages/dashboard/dashboardLayout";
+import AddNewBook from "../pages/dashboard/AddNewBook";
+import ManageBook from "../pages/dashboard/ManageBook";
+import EditBook from "../pages/dashboard/EditBook";
+import DashboardHome from "../pages/dashboard/DashboardHome";
 
 const router = createBrowserRouter([
     {
@@ -56,8 +63,39 @@ const router = createBrowserRouter([
 
         ]
     },
+    {
+        path: "/admin",
+        element: <AdminLogin />
+    },
+    {
+        path: "/dashboard",
+        element: (
+            <AdminRoute>
+                <DashboardLayout />
+            </AdminRoute>
+        ),
+        children: [
+            {
+                path: "",
+                element: <DashboardHome /> // or just <div>Dashboard Home</div>
+            },
+            {
+                path: "add-new-book",
+                element: <AddNewBook />
+            },
+            {
+                path: "edit-book/:id",
+                element: <EditBook />
+            },
+            {
+                path: "manage-books",
+                element: <ManageBook />
+            }
+        ]
+    }
+
+
 ]);
 
 
 export default router;
-

@@ -1,16 +1,27 @@
 const Book = require("./book.model");
 
+// const postAbook = async (req, res) => {
+//     try {
+//         const newBook = await Book({ ...req.body })
+//         await newBook.save();
+//         res.status(200).send({ message: "Book posted successfully...", book: newBook })
+//     } catch (error) {
+//         console.error("Error creating book", error);
+//         res.status(500).send({ message: "Fail to create a book" })
+//     }
+// }
+
+
 const postAbook = async (req, res) => {
     try {
-        const newBook = await Book({ ...req.body })
+        const newBook = await Book({ ...req.body });
         await newBook.save();
-        res.status(200).send({ message: "Book posted successfully...", book: newBook })
+        res.status(200).json({ message: "Book posted successfully...", book: newBook });
     } catch (error) {
         console.error("Error creating book", error);
-        res.status(500).send({ message: "Fail to create a book" })
+        res.status(500).json({ message: "Fail to create a book" });
     }
-}
-
+};
 
 const getAllbooks = async (req, res) => {
     try {
@@ -65,24 +76,44 @@ const updateBookData = async (req, res) => {
 }
 
 
+// const deleteBook = async (req, res) => {
+//     try {
+//         const { id } = req.params;
+//         const deletedBook = await Book.findByIdAndDelete(id);
+
+//         if (!deletedBook) {
+//             res.status(404).send({ message: "Book is not found" });
+//         }
+
+//         res.status(200).send({
+//             message: "Book deleted successfully",
+//             book: deletedBook
+//         })
+//     } catch (error) {
+//         console.error("Error deleting books", error)
+//         res.status(500).send({ mesage: "Failed to delete books" })
+//     }
+// }
+
 const deleteBook = async (req, res) => {
     try {
         const { id } = req.params;
         const deletedBook = await Book.findByIdAndDelete(id);
 
         if (!deletedBook) {
-            res.status(404).send({ message: "Book is not found" });
+            return res.status(404).send({ message: "Book not found" }); // ✅ Add `return` here
         }
 
-        res.status(200).send({
+        return res.status(200).send({
             message: "Book deleted successfully",
             book: deletedBook
-        })
+        });
     } catch (error) {
-        console.error("Error deleting books", error)
-        res.status(500).send({ mesage: "Failed to delete books" })
+        console.error("Error deleting book", error);
+        return res.status(500).send({ message: "Failed to delete book" }); // ✅ Typo fix: 'message'
     }
-}
+};
+
 
 
 module.exports = {
