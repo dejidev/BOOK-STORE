@@ -6,7 +6,7 @@ import { addToCart } from "../redux/features/cart/cartSlice";
 
 
 type Book = {
-    _id: string | number;
+    _id: number;
     title: string;
     description: string;
     category: string;

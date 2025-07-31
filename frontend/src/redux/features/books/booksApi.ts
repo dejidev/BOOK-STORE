@@ -3,7 +3,7 @@ import { createApi } from '@reduxjs/toolkit/query/react';
 import getbaseUrl from '../../../utils/baseurl';
 
 type Book = {
-    _id: string;
+    _id: number;
     title: string;
     description: string;
     category: string;
@@ -13,21 +13,17 @@ type Book = {
     newPrice: number;
 };
 
-
 const baseQuery = fetchBaseQuery({
     baseUrl: `${getbaseUrl()}/api/books`,
     credentials: 'include',
-    prepareHeaders: (Headers) => {
+    prepareHeaders: (headers) => {
         const token = localStorage.getItem("token");
-
         if (token) {
-            Headers.set("Authorization", `Bearer ${token}`)
+            headers.set("Authorization", `Bearer ${token}`);
         }
-        return Headers;
+        return headers;
     }
-})
-
-
+});
 
 const booksApi = createApi({
     reducerPath: 'bookApi',
@@ -38,13 +34,9 @@ const booksApi = createApi({
             query: () => "/",
             providesTags: ["Books"]
         }),
-        // fetchBooksById: builder.query<Book, string>({
-        //     query: (id) => `/${id}`,
-        //     providesTags: (result, error, id) => [{ type: 'Books', id }],
-        // }),
-        fetchBooksById: builder.query<Book, string | undefined>({
+
+        fetchBooksById: builder.query<Book, number>({
             query: (id) => `/${id}`,
-            // providesTags: (_res, _err, id) => [{ type: 'Books', id }],
         }),
 
         addBook: builder.mutation<Book, Partial<Book>>({
@@ -56,7 +48,7 @@ const booksApi = createApi({
             invalidatesTags: ['Books'],
         }),
 
-        updateBook: builder.mutation<Book, Partial<Book> & { id: string }>({
+        updateBook: builder.mutation<Book, Partial<Book> & { id: number }>({
             query: ({ id, ...updatedBook }) => ({
                 url: `edit/${id}`,
                 method: 'PUT',
@@ -65,20 +57,15 @@ const booksApi = createApi({
             invalidatesTags: ["Books"],
         }),
 
-
-
-        deleteBook: builder.mutation<void, string>({
+        deleteBook: builder.mutation<void, number>({
             query: (id) => ({
                 url: `/${id}`,
                 method: 'DELETE',
             }),
             invalidatesTags: ["Books"]
         }),
-
     })
 });
-
-
 
 export const {
     useFetchAllBookQuery,
@@ -87,4 +74,5 @@ export const {
     useUpdateBookMutation,
     useDeleteBookMutation
 } = booksApi;
+
 export default booksApi;

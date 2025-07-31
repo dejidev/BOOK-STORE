@@ -1,5 +1,6 @@
 const express = require('express')
 const app = express()
+const serverless = require("serverless-http");
 require('dotenv').config()
 
 
@@ -31,10 +32,10 @@ app.use(cors({
 // });
 
 
-const bookRoutes = require("./src/books/book.route.js")
-const orderRoutes = require("./src/order/order.route.js")
-const userRoutes = require("./src/users/user.route.js")
-const adminRoute = require("./src/stats/admin.stats.js")
+const bookRoutes = require("../src/books/book.route.js")
+const orderRoutes = require("../src/order/order.route.js")
+const userRoutes = require("../src/users/user.route.js")
+const adminRoute = require("../src/stats/admin.stats.js")
 
 
 app.use("/api/books", bookRoutes)
@@ -56,6 +57,14 @@ main()
     .catch(err => console.log(err));
 
 
-app.listen(port, () => {
-    console.log(`App is listening on port ${port}`)
-})
+// app.listen(port, () => {
+//     console.log(`App is listening on port ${port}`)
+// })
+
+
+app.get("/", (req, res) => {
+    res.send("Book Store API root.");
+});
+
+// Export for Vercel
+module.exports = serverless(app);
